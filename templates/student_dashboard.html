@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDU-SENSE | Mi Bienestar</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#63f7ff",
+                        secondary: "#dcb8ff",
+                        surface: "#101415"
+                    },
+                    fontFamily: {
+                        sans: ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: #101415;
+            color: white;
+        }
+
+        .glass {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .glow {
+            box-shadow: 0 0 35px rgba(99,247,255,0.12);
+        }
+    </style>
+</head>
+
+<body class="font-sans min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-400/20 shadow-lg shadow-cyan-500/20">
+        <span class="material-symbols-outlined text-cyan-400 text-2xl">
+            psychology
+        </span>
+    </div>
+    <div>
+        <h1 class="font-bold text-xl tracking-tight text-white">EDU-SENSE</h1>
+        <p class="text-xs text-gray-400">Mi bienestar académico</p>
+    </div>
+</div>
+            <div class="flex items-center gap-6">
+                <a href="/students/student-history/" class="text-gray-300 hover:text-primary transition">
+    Historial
+</a>
+
+<a href="/appointments/request/" class="text-gray-300 hover:text-primary transition">
+    Agendar cita
+</a>
+                <a href="/accounts/logout/" class="bg-primary text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 transition-all">
+                    Cerrar sesión
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="pt-28 px-8 max-w-7xl mx-auto">
+
+        <!-- HERO -->
+        <section class="mb-10">
+            <h1 class="text-5xl font-extrabold mb-4 leading-tight">
+                Hola, {{ student.user.username }} 👋
+                <span class="text-primary">bienvenido a tu espacio de bienestar</span>
+            </h1>
+
+            <p class="text-gray-400 text-lg max-w-3xl">
+                Monitorea tu estado emocional, recibe recomendaciones inteligentes y mantén equilibrio académico.
+            </p>
+        </section>
+
+        <!-- KPI -->
+        <section class="grid md:grid-cols-4 gap-6 mb-10">
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Riesgo emocional actual</p>
+                <h2 class="text-4xl font-bold mt-3 text-yellow-400">{{ student.get_risk_level_display }}</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Próxima cita</p>
+                <h2 class="text-2xl font-bold mt-3 text-primary">10:30 AM</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Score emocional</p>
+                <h2 class="text-3xl font-bold mt-3 text-green-400">{{ student.emotional_score }}</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Recomendación IA</p>
+                <h2 class="text-xl font-bold mt-3 text-secondary">Respira + Descansa</h2>
+            </div>
+
+        </section>
+        <!-- QUICK ACTIONS -->
+<section class="grid md:grid-cols-4 gap-6 mb-10">
+
+    <a href="/students/student-checkin/"
+       class="glass rounded-3xl p-6 hover:scale-105 transition-all cursor-pointer">
+        <div class="text-4xl mb-4">🧠</div>
+        <h3 class="font-bold text-lg">Realizar check-in</h3>
+        <p class="text-gray-400 text-sm mt-2">
+            Registra tu estado emocional diario
+        </p>
+    </a>
+
+    <a href="/students/student-history/"
+       class="glass rounded-3xl p-6 hover:scale-105 transition-all cursor-pointer">
+        <div class="text-4xl mb-4">📈</div>
+        <h3 class="font-bold text-lg">Historial emocional</h3>
+        <p class="text-gray-400 text-sm mt-2">
+            Consulta tus registros anteriores
+        </p>
+    </a>
+
+    <a href="/appointments/request/"
+       class="glass rounded-3xl p-6 hover:scale-105 transition-all cursor-pointer">
+        <div class="text-4xl mb-4">📅</div>
+        <h3 class="font-bold text-lg">Agendar cita</h3>
+        <p class="text-gray-400 text-sm mt-2">
+            Solicita orientación con un counselor
+        </p>
+    </a>
+
+    <a href="#"
+       class="glass rounded-3xl p-6 hover:scale-105 transition-all cursor-pointer">
+        <div class="text-4xl mb-4">🕒</div>
+        <h3 class="font-bold text-lg">Mis citas</h3>
+        <p class="text-gray-400 text-sm mt-2">
+            Consulta tus citas programadas
+        </p>
+    </a>
+
+</section>
+        <!-- CHART + PROFILE -->
+        <section class="grid md:grid-cols-2 gap-8 mb-10">
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Evolución emocional semanal</h3>
+                <canvas id="emotionChart"></canvas>
+            </div>
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Mi perfil</h3>
+
+                <div class="space-y-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Nombre</span>
+                        <span>{{ student.user.username }}</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Facultad</span>
+                        <span>{{ student.faculty }}</span>
+                    </div>
+
+                    <div class="flex justify-between">
+    <span class="text-gray-400">Carrera</span>
+    <span>{{ student.career }}</span>
+</div>
+
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Código</span>
+                        <span>{{ student.student_code }}</span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Estado</span>
+                        <span class="text-green-400">Activo</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- RECOMMENDATIONS -->
+        <section class="grid md:grid-cols-2 gap-8">
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Recomendaciones inteligentes</h3>
+
+                <div class="space-y-4">
+
+                    <div class="bg-primary/10 border border-primary/20 rounded-2xl p-4">
+                        <p class="font-semibold">🧘 Reduce tu carga mental</p>
+                        <p class="text-sm text-gray-400 mt-2">
+                            Se detecta aumento de estrés académico. Considera pausas activas.
+                        </p>
+                    </div>
+
+                    <div class="bg-secondary/10 border border-secondary/20 rounded-2xl p-4">
+                        <p class="font-semibold">💤 Prioriza descanso</p>
+                        <p class="text-sm text-gray-400 mt-2">
+                            Tus patrones sugieren posible fatiga acumulada.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Próximas actividades</h3>
+
+                <div class="space-y-4">
+
+                    <div class="flex justify-between bg-white/5 rounded-2xl p-4">
+                        <span>Sesión con orientador</span>
+                        <span class="text-primary">Hoy</span>
+                    </div>
+
+                    <div class="flex justify-between bg-white/5 rounded-2xl p-4">
+                        <span>Seguimiento emocional</span>
+                        <span class="text-secondary">Mañana</span>
+                    </div>
+
+                    <div class="flex justify-between bg-white/5 rounded-2xl p-4">
+                        <span>Encuesta bienestar</span>
+                        <span class="text-green-400">Pendiente</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        new Chart(document.getElementById('emotionChart'), {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'],
+                datasets: [{
+                    label: 'Estado emocional',
+                    data: [65, 72, 58, 80, 70],
+                    borderColor: '#63f7ff',
+                    backgroundColor: 'rgba(99,247,255,0.1)',
+                    tension: 0.4
+                }]
+            }
+        });
+    </script>
+
+</body>
+</html>

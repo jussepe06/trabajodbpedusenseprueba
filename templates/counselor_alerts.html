@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de alertas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#101415] text-white min-h-screen">
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <div class="flex justify-between items-center mb-10">
+        <h1 class="text-4xl font-bold">Gestión de alertas</h1>
+
+        <a href="/counselor-dashboard/"
+           class="px-5 py-3 rounded-2xl bg-cyan-400 text-black font-semibold">
+            Volver
+        </a>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 rounded-3xl overflow-hidden">
+
+        <table class="w-full">
+            <thead class="bg-white/5">
+                <tr>
+                    <th class="text-left p-5">Estudiante</th>
+                    <th class="text-left p-5">Riesgo</th>
+                    <th class="text-left p-5">Mensaje</th>
+                    <th class="text-left p-5">Estado</th>
+                    <th class="text-left p-5">Acción</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for alert in alerts %}
+                <tr class="border-t border-white/5">
+
+                    <td class="p-5">
+                        {{ alert.student.user.username }}
+                    </td>
+
+                    <td class="p-5">
+                        {{ alert.get_risk_level_display }}
+                    </td>
+
+                    <td class="p-5">
+                        {{ alert.message }}
+                    </td>
+
+                    <td class="p-5">
+                        {{ alert.get_status_display }}
+                    </td>
+
+                    <td class="p-5">
+    {% if alert.status == 'PENDING' %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="alert_id" value="{{ alert.id }}">
+
+            <button type="submit"
+                    name="status"
+                    value="IN_PROGRESS"
+                    class="px-3 py-2 rounded-xl bg-yellow-400 text-black">
+                En proceso
+            </button>
+        </form>
+
+    {% elif alert.status == 'IN_PROGRESS' %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="alert_id" value="{{ alert.id }}">
+
+            <button type="submit"
+                    name="status"
+                    value="RESOLVED"
+                    class="px-3 py-2 rounded-xl bg-green-500 text-black">
+                Marcar resuelta
+            </button>
+        </form>
+
+    {% else %}
+        <span class="text-green-400 font-semibold">
+            Caso cerrado
+        </span>
+    {% endif %}
+</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

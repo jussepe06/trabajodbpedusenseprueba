@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de usuarios | EDU-SENSE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#101415] text-white min-h-screen">
+
+    <div class="max-w-7xl mx-auto px-6 py-10">
+
+        <div class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-4xl font-bold">
+                    Gestión de usuarios
+                </h1>
+                <p class="text-gray-400 mt-2">
+                    CRUD completo de usuarios del sistema
+                </p>
+            </div>
+
+            <a href="/admin-dashboard/"
+               class="px-5 py-3 rounded-2xl bg-cyan-400 text-black font-semibold">
+                Volver
+            </a>
+        </div>
+
+        <!-- CREATE -->
+        <div class="bg-white/5 border border-white/10 rounded-3xl p-8 mb-10">
+            <h2 class="text-2xl font-bold mb-6">
+                Crear usuario
+            </h2>
+
+            <form method="POST" class="grid md:grid-cols-4 gap-4">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="create">
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Usuario"
+                    required
+                    class="bg-white/5 border border-white/10 rounded-2xl px-4 py-3"
+                >
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    required
+                    class="bg-white/5 border border-white/10 rounded-2xl px-4 py-3"
+                >
+
+                <select
+                    name="role"
+                    class="bg-white/5 border border-white/10 rounded-2xl px-4 py-3"
+                >
+                    <option value="STUDENT">Estudiante</option>
+                    <option value="COUNSELOR">Counselor</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+
+                <button
+                    type="submit"
+                    class="bg-cyan-400 text-black rounded-2xl font-bold">
+                    Crear
+                </button>
+            </form>
+        </div>
+
+        <!-- READ / UPDATE / DELETE -->
+        <div class="bg-white/5 border border-white/10 rounded-3xl overflow-hidden">
+
+            <table class="w-full">
+                <thead class="bg-white/5">
+                    <tr>
+                        <th class="text-left p-5">Usuario</th>
+                        <th class="text-left p-5">Rol</th>
+                        <th class="text-left p-5">Actualizar</th>
+                        <th class="text-left p-5">Eliminar</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for user in users %}
+                    <tr class="border-t border-white/5">
+
+                        <td class="p-5">
+                            {{ user.username }}
+                        </td>
+
+                        <td class="p-5">
+                            {{ user.role }}
+                        </td>
+
+                        <td class="p-5">
+                            <form method="POST" class="flex gap-2">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                                <select
+                                    name="role"
+                                    class="bg-white/5 border border-white/10 rounded-xl px-3 py-2"
+                                >
+                                    <option value="STUDENT">Estudiante</option>
+                                    <option value="COUNSELOR">Counselor</option>
+                                    <option value="ADMIN">Admin</option>
+                                </select>
+
+                                <button
+                                    type="submit"
+                                    class="bg-yellow-400 text-black px-4 rounded-xl font-semibold">
+                                    Actualizar
+                                </button>
+                            </form>
+                        </td>
+
+                        <td class="p-5">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+
+                                <button
+                                    type="submit"
+                                    class="bg-red-500 px-4 py-2 rounded-xl font-semibold">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

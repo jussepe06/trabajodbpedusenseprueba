@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDU-SENSE | Panel Orientador</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#63f7ff",
+                        secondary: "#dcb8ff",
+                        surface: "#101415"
+                    },
+                    fontFamily: {
+                        sans: ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: #101415;
+            color: white;
+        }
+
+        .glass {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .glow {
+            box-shadow: 0 0 35px rgba(99,247,255,0.12);
+        }
+    </style>
+</head>
+
+<body class="font-sans min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-400/20 shadow-lg shadow-cyan-500/20">
+        <span class="material-symbols-outlined text-cyan-400 text-2xl">
+            psychology
+        </span>
+    </div>
+    <div>
+        <h1 class="font-bold text-xl tracking-tight text-white">EDU-SENSE</h1>
+        <p class="text-xs text-gray-400">Panel del orientador</p>
+    </div>
+</div>
+
+            <div class="flex items-center gap-6">
+               <a href="/alerts/counselor/"
+   class="text-gray-300 hover:text-primary transition">
+    Casos
+</a>
+                <a href="/appointments/counselor/"
+   class="text-gray-300 hover:text-primary transition">
+    Citas
+</a>
+                <a href="/accounts/logout/" class="bg-primary text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 transition-all">
+                    Cerrar sesión
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="pt-28 px-8 max-w-7xl mx-auto">
+
+        <!-- HERO -->
+        <section class="mb-10">
+            <h1 class="text-5xl font-extrabold mb-4 leading-tight">
+                Centro de intervención
+                <span class="text-primary">emocional estudiantil</span>
+            </h1>
+
+            <p class="text-gray-400 text-lg max-w-3xl">
+                Gestiona alertas, monitorea estudiantes en riesgo y coordina intervenciones tempranas.
+            </p>
+        </section>
+
+        <!-- KPI -->
+        <section class="grid md:grid-cols-4 gap-6 mb-10">
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Alertas críticas</p>
+                <h2 class="text-4xl font-bold mt-3 text-red-400">{{ critical_alerts }}</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Casos moderados</p>
+                <h2 class="text-4xl font-bold mt-3 text-yellow-400">{{ moderate_alerts }}</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Seguimientos activos</p>
+                <h2 class="text-4xl font-bold mt-3 text-green-400">{{ students.count }}</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Citas hoy</p>
+                <h2 class="text-4xl font-bold mt-3 text-primary">{{ appointments.count }}</h2>
+            </div>
+
+        </section>
+
+        <!-- CHART + ALERTS -->
+        <section class="grid md:grid-cols-2 gap-8 mb-10">
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Tendencia de riesgo semanal</h3>
+                <canvas id="riskTrendChart"></canvas>
+            </div>
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Alertas recientes</h3>
+
+                <div class="space-y-4">
+
+                    <div class="space-y-4">
+    {% for alert in alerts %}
+    <div class="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-4">
+        <p class="font-semibold">
+            {{ alert.get_risk_level_display }}
+        </p>
+
+        <p class="text-sm text-gray-400 mt-2">
+            Alumno: {{ alert.student.user.username }}
+        </p>
+
+        <p class="text-sm text-gray-400">
+            Facultad: {{ alert.student.faculty }}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- TABLE -->
+        <section class="glass rounded-3xl p-6 mb-10">
+            <h3 class="text-xl font-bold mb-6">Estudiantes asignados</h3>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-white/10 text-gray-400">
+                            <th class="pb-4">Nombre</th>
+                            <th class="pb-4">Facultad</th>
+                            <th class="pb-4">Score</th>
+                            <th class="pb-4">Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+    {% for student in students %}
+    <tr class="border-b border-white/5">
+        <td class="py-4">{{ student.user.username }}</td>
+        <td>{{ student.faculty }}</td>
+        <td>{{ student.emotional_score }}</td>
+        <td class="text-yellow-400">
+            {{ student.get_risk_level_display }}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- APPOINTMENTS -->
+        <section class="glass rounded-3xl p-6">
+            <h3 class="text-xl font-bold mb-6">Agenda del día</h3>
+
+            <div class="space-y-4">
+    {% for appointment in appointments %}
+    <div class="flex justify-between bg-white/5 rounded-2xl p-4">
+        <span>
+            {{ appointment.student.user.username }} — {{ appointment.appointment_time }}
+        </span>
+
+        <span class="text-primary">
+            Hoy
+        </span>
+    </div>
+    {% endfor %}
+</div>
+
+           
+        </section>
+
+    </main>
+
+    <script>
+        new Chart(document.getElementById('riskTrendChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'],
+                datasets: [{
+                    label: 'Alertas detectadas',
+                    data: [8, 12, 6, 14, 10],
+                    backgroundColor: '#63f7ff'
+                }]
+            }
+        });
+    </script>
+
+</body>
+</html>

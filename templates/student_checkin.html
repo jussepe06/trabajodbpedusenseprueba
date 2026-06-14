@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in emocional | EDU-SENSE</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0b0f10 0%, #101415 100%);
+        }
+
+        .glass-card {
+            background: rgba(29, 32, 34, 0.45);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .option-card:hover {
+            transform: translateY(-4px);
+            border-color: #63f7ff;
+            box-shadow: 0 0 25px rgba(99,247,255,0.15);
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked + label {
+            border-color: #63f7ff;
+            background: rgba(99,247,255,0.08);
+            transform: scale(1.03);
+        }
+
+        input[type="range"] {
+            accent-color: #63f7ff;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-white">
+
+    <div class="max-w-5xl mx-auto px-6 py-10">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-10">
+            <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-400/20 shadow-lg shadow-cyan-500/20">
+        <span class="material-symbols-outlined text-cyan-400 text-2xl">
+            psychology
+        </span>
+    </div>
+
+    <div>
+        <h1 class="text-2xl font-bold tracking-tight text-white">
+            EDU-SENSE
+        </h1>
+        <p class="text-sm text-gray-400">
+            Check-in emocional diario
+        </p>
+    </div>
+</div>
+
+            <a href="/student-dashboard/"
+               class="px-5 py-2 rounded-xl bg-white/5 hover:bg-white/10 transition">
+                Volver
+            </a>
+        </div>
+
+        <!-- Card -->
+        <div class="glass-card rounded-3xl p-8 md:p-10">
+
+            <div class="mb-10">
+                <h2 class="text-4xl font-bold mb-3">
+                    ¿Cómo te sientes hoy?
+                </h2>
+                <p class="text-gray-400 text-lg">
+                    Tu bienestar emocional nos ayuda a acompañarte mejor.
+                </p>
+            </div>
+
+            <form method="POST" class="space-y-10">
+                {% csrf_token %}
+
+                <!-- Mood -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-5">
+                        Estado emocional
+                    </h3>
+
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+
+                        <input type="radio" id="very_good" name="mood" value="VERY_GOOD" required>
+                        <label for="very_good" class="option-card cursor-pointer border border-white/10 rounded-2xl p-6 text-center transition">
+                            <div class="text-4xl mb-2">😄</div>
+                            <div>Muy bien</div>
+                        </label>
+
+                        <input type="radio" id="good" name="mood" value="GOOD">
+                        <label for="good" class="option-card cursor-pointer border border-white/10 rounded-2xl p-6 text-center transition">
+                            <div class="text-4xl mb-2">🙂</div>
+                            <div>Bien</div>
+                        </label>
+
+                        <input type="radio" id="neutral" name="mood" value="NEUTRAL">
+                        <label for="neutral" class="option-card cursor-pointer border border-white/10 rounded-2xl p-6 text-center transition">
+                            <div class="text-4xl mb-2">😐</div>
+                            <div>Regular</div>
+                        </label>
+
+                        <input type="radio" id="bad" name="mood" value="BAD">
+                        <label for="bad" class="option-card cursor-pointer border border-white/10 rounded-2xl p-6 text-center transition">
+                            <div class="text-4xl mb-2">😟</div>
+                            <div>Mal</div>
+                        </label>
+
+                        <input type="radio" id="very_bad" name="mood" value="VERY_BAD">
+                        <label for="very_bad" class="option-card cursor-pointer border border-white/10 rounded-2xl p-6 text-center transition">
+                            <div class="text-4xl mb-2">😢</div>
+                            <div>Muy mal</div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <!-- Stress -->
+                <div>
+                    <label class="block text-xl font-semibold mb-3">
+                        Nivel de estrés (1–10)
+                    </label>
+
+                    <input
+                        type="range"
+                        name="stress_level"
+                        min="1"
+                        max="10"
+                        value="5"
+                        class="w-full"
+                    >
+                </div>
+
+                <!-- Sleep -->
+                <div>
+                    <label class="block text-xl font-semibold mb-3">
+                        Horas de sueño
+                    </label>
+
+                    <select
+                        name="sleep_hours"
+                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4"
+                    >
+                        <option value="3">0–3 horas</option>
+                        <option value="5">4–5 horas</option>
+                        <option value="7">6–7 horas</option>
+                        <option value="8">8+ horas</option>
+                    </select>
+                </div>
+
+                <!-- Motivation -->
+                <div>
+                    <label class="block text-xl font-semibold mb-3">
+                        Motivación académica (1–10)
+                    </label>
+
+                    <input
+                        type="range"
+                        name="motivation_level"
+                        min="1"
+                        max="10"
+                        value="6"
+                        class="w-full"
+                    >
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">
+                        ¿Te sientes acompañado emocionalmente?
+                    </h3>
+
+                    <div class="flex gap-6">
+                        <label class="flex items-center gap-3">
+                            <input type="radio" name="feels_supported" value="true" required>
+                            Sí
+                        </label>
+
+                        <label class="flex items-center gap-3">
+                            <input type="radio" name="feels_supported" value="false">
+                            No
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div>
+                    <label class="block text-xl font-semibold mb-3">
+                        Comentario opcional
+                    </label>
+
+                    <textarea
+                        name="notes"
+                        rows="5"
+                        placeholder="Cuéntanos cómo te has sentido..."
+                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4"
+                    ></textarea>
+                </div>
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    class="w-full py-5 rounded-2xl bg-cyan-400 text-black font-bold text-lg hover:scale-[1.02] transition"
+                >
+                    Guardar check-in emocional
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

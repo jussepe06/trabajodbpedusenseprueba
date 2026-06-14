@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDU-SENSE | Admin Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#63f7ff",
+                        secondary: "#dcb8ff",
+                        surface: "#101415",
+                        glass: "rgba(255,255,255,0.06)"
+                    },
+                    fontFamily: {
+                        sans: ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: #101415;
+            color: white;
+        }
+
+        .glass {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .glow {
+            box-shadow: 0 0 35px rgba(99,247,255,0.12);
+        }
+    </style>
+</head>
+
+<body class="font-sans min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-400/20 shadow-lg shadow-cyan-500/20">
+        <span class="material-symbols-outlined text-cyan-400 text-2xl">
+            psychology
+        </span>
+    </div>
+    <div>
+        <h1 class="font-bold text-xl tracking-tight text-white">EDU-SENSE</h1>
+        <p class="text-xs text-gray-400">Panel Administrativo</p>
+    </div>
+</div>
+
+            <div class="flex items-center gap-6">
+                <span class="text-sm text-gray-300">
+                    Bienvenida, Admin
+                </span>
+                <a href="/accounts/manage-users/"
+   class="text-gray-300 hover:text-primary transition">
+    Gestión usuarios
+</a>
+
+                <a href="/accounts/logout/" class="bg-primary text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 transition-all">
+                    Cerrar sesión
+                </a>
+                
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="pt-28 px-8 max-w-7xl mx-auto">
+
+        <!-- HERO -->
+        <section class="mb-10">
+            <h1 class="text-5xl font-extrabold mb-4 leading-tight">
+                Centro de monitoreo emocional
+                <span class="text-primary">en tiempo real</span>
+            </h1>
+
+            <p class="text-gray-400 text-lg max-w-3xl">
+                Visualiza alertas críticas, estudiantes en riesgo y métricas institucionales con inteligencia preventiva.
+            </p>
+        </section>
+
+        <!-- KPI CARDS -->
+        <section class="grid md:grid-cols-4 gap-6 mb-10">
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Estudiantes monitoreados</p>
+                <h2 class="text-4xl font-bold mt-3 text-primary">12,482</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Alertas críticas</p>
+                <h2 class="text-4xl font-bold mt-3 text-red-400">37</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Citas programadas</p>
+                <h2 class="text-4xl font-bold mt-3 text-green-400">124</h2>
+            </div>
+
+            <div class="glass glow rounded-3xl p-6">
+                <p class="text-gray-400 text-sm">Riesgo alto detectado</p>
+                <h2 class="text-4xl font-bold mt-3 text-secondary">89</h2>
+            </div>
+
+        </section>
+
+        <!-- CHARTS -->
+        <section class="grid md:grid-cols-2 gap-8 mb-10">
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Riesgo emocional semanal</h3>
+                <canvas id="riskChart"></canvas>
+            </div>
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Distribución de alertas</h3>
+                <canvas id="alertChart"></canvas>
+            </div>
+
+        </section>
+
+        <!-- ALERTS -->
+        <section class="grid md:grid-cols-2 gap-8">
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Alertas recientes</h3>
+
+                <div class="space-y-4">
+
+                    <div class="bg-red-500/10 border border-red-500/20 rounded-2xl p-4">
+                        <p class="font-semibold">⚠ Riesgo alto detectado</p>
+                        <p class="text-sm text-gray-400 mt-2">Alumno: Juan Pérez</p>
+                        <p class="text-sm text-gray-400">Facultad: Ingeniería</p>
+                    </div>
+
+                    <div class="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-4">
+                        <p class="font-semibold">⚠ Riesgo moderado</p>
+                        <p class="text-sm text-gray-400 mt-2">Alumno: María López</p>
+                        <p class="text-sm text-gray-400">Facultad: Negocios</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="glass rounded-3xl p-6">
+                <h3 class="text-xl font-bold mb-6">Próximas citas</h3>
+
+                <div class="space-y-4">
+
+                    <div class="flex justify-between bg-white/5 rounded-2xl p-4">
+                        <span>Psicología - 10:30 AM</span>
+                        <span class="text-primary">Hoy</span>
+                    </div>
+
+                    <div class="flex justify-between bg-white/5 rounded-2xl p-4">
+                        <span>Seguimiento - 2:00 PM</span>
+                        <span class="text-primary">Hoy</span>
+                    </div>
+
+                    <div class="flex justify-between bg-white/5 rounded-2xl p-4">
+                        <span>Intervención - 9:00 AM</span>
+                        <span class="text-secondary">Mañana</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        new Chart(document.getElementById('riskChart'), {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'],
+                datasets: [{
+                    label: 'Riesgo',
+                    data: [12, 19, 8, 25, 18],
+                    borderColor: '#63f7ff',
+                    backgroundColor: 'rgba(99,247,255,0.1)',
+                    tension: 0.4
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('alertChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Crítico', 'Moderado', 'Bajo'],
+                datasets: [{
+                    data: [37, 54, 120],
+                    backgroundColor: [
+                        '#ff6b6b',
+                        '#ffd166',
+                        '#63f7ff'
+                    ]
+                }]
+            }
+        });
+    </script>
+
+</body>
+</html>

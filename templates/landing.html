@@ -1,0 +1,318 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>EDU-SENSE - Detección Temprana de Riesgo Emocional</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#b9c7e4",
+                        "primary-container": "#0a192f",
+                        "secondary": "#e6feff",
+                        "secondary-fixed": "#63f7ff",
+                        "tertiary": "#dcb8ff",
+                        "surface": "#101415",
+                        "surface-container": "#1d2022",
+                        "surface-container-lowest": "#0b0f10",
+                        "on-surface": "#e0e3e5",
+                        "on-surface-variant": "#c5c6cd",
+                        "on-primary": "#233148",
+                        "on-primary-fixed-variant": "#39475f",
+                        "outline": "#8f9097"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "stack-md": "24px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "stack-sm": "12px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "stack-lg": "48px",
+                        "stack-xs": "4px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "data-viz": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "data-viz": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+
+    <nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-sm flex items-center justify-between px-margin-desktop py-base max-w-container-max mx-auto left-0 right-0">
+        
+        <div class="flex items-center">
+            <div class="font-headline-md text-headline-md font-bold text-primary tracking-tight">
+                <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-secondary-fixed/10 flex items-center justify-center border border-secondary-fixed/20 shadow-lg shadow-cyan-500/20">
+        <span class="material-symbols-outlined text-secondary-fixed text-2xl">
+            psychology
+        </span>
+    </div>
+    <span class="tracking-tighter text-white font-bold">EDU-SENSE</span>
+</div>
+            </div>
+        </div>
+        
+        <div class="hidden md:flex flex-1 justify-center items-center gap-gutter">
+            <a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-lg text-body-lg transition-colors duration-300" href="#inicio">Inicio</a>
+            <a class="text-on-surface-variant font-medium font-body-lg text-body-lg hover:text-primary transition-colors duration-300" href="#metodologia">Metodología</a>
+            <a class="text-on-surface-variant font-medium font-body-lg text-body-lg hover:text-primary transition-colors duration-300" href="#soluciones">Soluciones</a>
+            <a class="text-on-surface-variant font-medium font-body-lg text-body-lg hover:text-primary transition-colors duration-300" href="#contacto">Contacto</a>
+        </div>
+        
+        <div class="flex items-center justify-end ml-auto">
+            <a
+                href="/accounts/login/"
+                class="border border-primary text-primary bg-transparent px-8 py-2.5 rounded-lg font-bold hover:bg-primary/10 active:scale-95 transition-all inline-block"
+            >
+                Iniciar sesión
+            </a>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        
+        <section id="inicio" class="relative min-h-[90vh] flex items-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img alt="Estudiante en biblioteca con superposiciones digitales" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsJ-oerE7a78QDY_JXnA7RPfgjt8IZd7j19UUz5oLdblinbd432ICJi32pnUmRzQmcCJEJJNzUVTTHAavhhdJia3SBtttaHssREjMc6H0WAXXFHUD9bZPrNeJdYmkOuTg3m4oZByzdO4c5Y_WpGapBNu_F5H0-hXEaTwPdsHYg-nMUxn_xozVnNOlXH1r0WIEj_zeat5zfqRhpT4Tbc1hz_bR-18BvC7Bngx-gPOFG5iPkJmR8jJMnD7bc2WYtAqa-uh0NpAELj556"/>
+                <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+            </div>
+            <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+                <div class="max-w-3xl space-y-stack-md">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-secondary-fixed/10 text-secondary-fixed font-label-caps text-label-caps border border-secondary-fixed/20 backdrop-blur-md">
+                        CUIDADO INTELIGENTE 2.0
+                    </span>
+                    <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white leading-tight">
+                        Transformando la <span class="text-secondary-fixed glow-accent">salud mental</span> con análisis proactivo
+                    </h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl leading-relaxed">
+                        Utilizamos inteligencia de datos no intrusiva para detectar patrones de riesgo emocional, permitiendo intervenciones tempranas que salvan trayectorias académicas.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-gutter pt-stack-md">
+                        <button class="bg-gradient-to-r from-[#63f7ff] to-[#dcb8ff] text-[#0a192f] px-10 py-5 rounded-xl font-bold flex items-center justify-center gap-3 hover:scale-102 hover:brightness-110 active:scale-98 transition-all shadow-xl shadow-[#63f7ff]/20">
+                            Saber más
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+                <span class="text-label-caps font-label-caps">DESCUBRE</span>
+                <div class="w-[1px] h-12 bg-gradient-to-b from-secondary-fixed to-transparent"></div>
+            </div>
+        </section>
+
+        <section id="metodologia" class="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div class="flex flex-col items-center text-center mb-20 space-y-4">
+                <h2 class="font-headline-md text-4xl md:text-5xl text-on-surface">Metodología de Impacto</h2>
+                <p class="text-on-surface-variant max-w-2xl font-body-md">Un ecosistema circular diseñado para el bienestar integral del estudiante.</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-secondary-fixed to-tertiary rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                <div class="glass-card p-10 rounded-3xl space-y-6 relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-primary-container flex items-center justify-center text-primary shadow-inner">
+                        <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface">Métricas Pasivas</h3>
+                    <p class="text-on-surface-variant font-body-md leading-relaxed">
+                        Capturamos el compromiso académico a través de interacciones digitales habituales, sin encuestas intrusivas ni fricción.
+                    </p>
+                </div>
+                <div class="glass-card p-10 rounded-3xl space-y-6 relative border-secondary-fixed/20 shadow-2xl shadow-secondary-fixed/5 group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-secondary-fixed/10 rounded-full blur-3xl group-hover:bg-secondary-fixed/20 transition-colors"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-secondary-fixed/10 flex items-center justify-center text-secondary-fixed shadow-inner">
+                        <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface">IA Predictiva</h3>
+                    <p class="text-on-surface-variant font-body-md leading-relaxed">
+                        Algoritmos de aprendizaje profundo que identifican cambios sutiles en la conducta antes de que se conviertan en crisis.
+                    </p>
+                </div>
+                <div class="glass-card p-10 rounded-3xl space-y-6 relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-tertiary/5 rounded-full blur-3xl group-hover:bg-tertiary/10 transition-colors"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-tertiary-container flex items-center justify-center text-tertiary shadow-inner">
+                        <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface">Acción Humana</h3>
+                    <p class="text-on-surface-variant font-body-md leading-relaxed">
+                        Conectamos la alerta tecnológica con el equipo de bienestar institucional para un acompañamiento cálido y oportuno.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="soluciones" class="py-32 bg-[#0b0f10]/80 relative">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="flex flex-col lg:flex-row justify-between items-start mb-16 gap-12">
+                    <div class="max-w-2xl">
+                        <h2 class="font-headline-md text-4xl text-on-surface mb-6 leading-tight">Visualización del Pulso Universitario</h2>
+                        <p class="text-on-surface-variant font-body-lg">Transformamos gigabytes de interacciones en un mapa claro de la salud comunitaria, facilitando la toma de decisiones estratégicas.</p>
+                    </div>
+                    <a class="group flex items-center gap-3 text-secondary-fixed font-label-caps text-label-caps hover:gap-5 transition-all" href="#">
+                        EXPLORAR DASHBOARD INTERACTIVO 
+                        <span class="material-symbols-outlined text-lg">arrow_right_alt</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 glass-card rounded-3xl p-10 flex flex-col justify-between min-h-[400px]">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-label-caps text-label-caps text-primary mb-2">ENGAGEMENT SEMANAL</p>
+                                <h4 class="font-headline-md text-3xl text-on-surface">Tendencia de Estabilidad</h4>
+                            </div>
+                            <div class="px-4 py-2 bg-secondary-fixed/10 rounded-full border border-secondary-fixed/20 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+                                <span class="text-secondary-fixed font-data-viz text-xs">ACTUALIZADO</span>
+                            </div>
+                        </div>
+                        <div class="mt-12">
+                            <div class="flex items-end justify-between h-48 gap-4 px-4">
+                                <div class="w-full bg-primary/10 h-[30%] rounded-xl transition-all hover:bg-primary/20 cursor-pointer"></div>
+                                <div class="w-full bg-primary/10 h-[55%] rounded-xl transition-all hover:bg-primary/20 cursor-pointer"></div>
+                                <div class="w-full bg-secondary-fixed h-[85%] rounded-xl data-viz-glow cursor-pointer relative group">
+                                    <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-surface p-2 rounded border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity text-xs whitespace-nowrap">Pico de Actividad</div>
+                                </div>
+                                <div class="w-full bg-primary/10 h-[65%] rounded-xl transition-all hover:bg-primary/20 cursor-pointer"></div>
+                                <div class="w-full bg-primary/10 h-[45%] rounded-xl transition-all hover:bg-primary/20 cursor-pointer"></div>
+                                <div class="w-full bg-primary/10 h-[25%] rounded-xl transition-all hover:bg-primary/20 cursor-pointer"></div>
+                                <div class="w-full bg-primary/10 h-[15%] rounded-xl transition-all hover:bg-primary/20 cursor-pointer"></div>
+                            </div>
+                            <div class="flex justify-between mt-6 text-on-surface-variant/50 font-data-viz text-xs uppercase tracking-widest">
+                                <span>Lun</span><span>Mar</span><span>Mie</span><span>Jue</span><span>Vie</span><span>Sab</span><span>Dom</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-8">
+                        <div class="glass-card rounded-3xl p-8 flex-1 flex flex-col justify-between group">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-tertiary text-3xl">verified_user</span>
+                                <span class="text-tertiary font-data-viz text-sm">+4.2%</span>
+                            </div>
+                            <div>
+                                <p class="font-label-caps text-label-caps text-on-surface-variant mb-1">TASA DE ÉXITO</p>
+                                <h4 class="font-headline-md text-4xl text-on-surface">94.8%</h4>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-3xl p-8 flex-1 flex flex-col justify-between bg-primary-container/30">
+                            <div class="flex items-center justify-between">
+                                <span class="material-symbols-outlined text-secondary-fixed text-3xl">speed</span>
+                                <span class="text-secondary-fixed font-data-viz text-sm">ÓPTIMO</span>
+                            </div>
+                            <div>
+                                <p class="font-label-caps text-label-caps text-on-surface-variant mb-1">VELOCIDAD RESPUESTA</p>
+                                <h4 class="font-headline-md text-4xl text-on-surface">2.4h</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-32 bg-surface px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
+            <div class="max-w-4xl mx-auto space-y-10">
+                <h2 class="font-display-lg text-4xl md:text-6xl text-on-surface leading-tight">
+                    Construyendo el futuro del <br/>
+                    <span class="text-primary italic">bienestar académico.</span>
+                </h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+                    Nuestra plataforma es utilizada por instituciones líderes a nivel mundial que priorizan la salud de sus comunidades sin comprometer la privacidad.
+                </p>
+                <div class="pt-8 flex flex-wrap justify-center items-center gap-16 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
+                    <div class="font-headline-md text-3xl font-black tracking-tighter">UNIV_CAMPUS</div>
+                    <div class="font-headline-md text-3xl font-black tracking-tighter">INST_EDU</div>
+                    <div class="font-headline-md text-3xl font-black tracking-tighter">TECH_MIND</div>
+                    <div class="font-headline-md text-3xl font-black tracking-tighter">GLOBAL_ACAD</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="w-full px-margin-desktop py-stack-lg flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-container-lowest border-t border-white/5">
+        <div class="flex flex-col gap-base items-center md:items-start">
+            <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-400/20 shadow-lg shadow-cyan-500/20">
+        <span class="material-symbols-outlined text-cyan-400 text-2xl">
+            psychology
+        </span>
+    </div>
+    <div>
+        <h1 class="font-bold text-xl tracking-tight text-white">EDU-SENSE</h1>
+    
+    </div>
+</div>
+            <p class="font-body-md text-body-md text-on-surface-variant opacity-60">© 2026 EDU-SENSE. Vigilancia empática y cuidado inteligente.</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-gutter">
+            <a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-all" href="#">Privacidad</a>
+            <a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-all" href="#">Términos de Servicio</a>
+            <a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-all" href="#">Metodología</a>
+            <a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed transition-all" href="#">Contacto</a>
+        </div>
+    </footer>
+
+    <script>
+        // Efecto Parallax basado en el movimiento del mouse
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+
+        // Animación suave de aparición al hacer scroll (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
